@@ -4,17 +4,13 @@ socket.on('connect',function (){
   console.log('server running!');
 
   socket.emit('createEmail',{
-    from:'nicolas@cage.com',
-    to: 'Priya@ggwp.com',
-    text : 'email body goes here'
-  });
 
-  socket.emit('createMessage',{
-    from:'Arty',
-    text:'A text from user'
   });
 });
 
+socket.on('Notice',function(welcome){
+  console.log('Notice',welcome);
+});
 socket.on('disconnect',function (){
   console.log('Servr connection lost');
 });
