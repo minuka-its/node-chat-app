@@ -8,7 +8,7 @@
     console.log('Notice',welcome);
   });
   socket.on('disconnect',function (){
-    console.log('Servr connection lost');
+    console.log('Server connection lost');
   });
 
   socket.on('newLocationMessage',function(message){
@@ -31,12 +31,13 @@
 
   jQuery('#message-form').on('submit',function(e){
     e.preventDefault();
+    var messageTextBox = jQuery('[name=message]');
 
     socket.emit('createMessage',{
       from:'User',
-      text:jQuery('[name=message]').val()
+      text:messageTextBox.val()
     },function(){
-
+      messageTextBox.val('');
     });
   });
 
@@ -46,12 +47,16 @@
       return alert('Geo location is not supported by your browser!');
     }
 
+    locationButton.attr('disabled', 'disabled').text('Sending location...');
+
     navigator.geolocation.getCurrentPosition(function(position) {
+      locationButton.removeAttr('disabled').text('Send Location');
       socket.emit('createLocationMessage',{
         latitude : position.coords.latitude,
         longitude : position.coords.longitude
       });
     }, function (){
+      locationButton.removeAttr('disabled').text('Send Location');
       alert('Unable to fetch Location!');
     });
   })
