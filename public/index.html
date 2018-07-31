@@ -7,7 +7,17 @@
 
   <h1>Welcome to the Chat App</h1>
 
+  <ol id="messages"></ol>
+  <hr>
+  <form id="message-form">
+    <input name="message" type="input" placeholder="Message"/>
+    <button>Send</button>
+  </form>
+
+  <button id="send-location">Send Location</button>
+
   <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/libs/jquery-3.3.1.min.js"></script>
   <script src = "/js/index.js"></script>
 </body>
 
