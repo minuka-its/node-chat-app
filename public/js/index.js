@@ -11,6 +11,25 @@
     console.log('Server connection lost');
   });
 
+  function scrollToBottom (){
+
+    //Selectors
+    var messages = jQuery('#messages');
+    var newMessage = messages.children('li:last-child');
+
+    //Heights
+    var clientHeight = messages.prop('clientHeight');
+    var scrollTop = messages.prop('scrollTop');
+    var scrollHeight = messages.prop('scrollHeight');
+    var newMessageHeight = newMessage.innerHeight();
+    var lastMessageHeight = newMessage.prev().innerHeight();
+
+    if(clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight)
+    {
+        messages.scrollTop(scrollHeight)
+    }
+  }
+
   socket.on('newLocationMessage',function(message){
     var formattedTime = moment(message.createdAt).format('h:mm a');
     var template = jQuery('#location-message-template').html();
@@ -36,6 +55,7 @@
       createdAt : formattedTime
     });
     jQuery('#messages').append(html);
+    scrollToBottom();
 
   });
 
